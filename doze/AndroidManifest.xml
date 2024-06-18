@@ -43,7 +43,7 @@
                  android:exported="true">
         </service>
 
-        <activity
+        <!-- <activity
             android:name=".DozeSettingsActivity"
             android:exported="false"
             android:label="@string/ambient_display_title"
@@ -52,7 +52,7 @@
                 <action android:name="org.lineageos.settings.device.DOZE_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+        </activity> -->
 
     </application>
 </manifest>

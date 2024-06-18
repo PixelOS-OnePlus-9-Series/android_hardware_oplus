@@ -38,7 +38,8 @@ class PickupSensor(
         if (event.values[0] == sensorValue) {
             if (Utils.isPickUpSetToWake(context)) {
                 wakeLock.acquire(WAKELOCK_TIMEOUT_MS)
-                powerManager.wakeUpWithProximityCheck(
+                // powerManager.wakeUpWithProximityCheck(
+                powerManager.wakeUp(
                     SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_GESTURE, TAG
                 )
             } else {
@@ -51,7 +52,7 @@ class PickupSensor(
 
     fun enable() {
         if (sensor != null) {
-            Log.d(TAG, "Enabling")
+            if (DEBUG) Log.d(TAG, "Enabling")
             executorService.submit {
                 entryTimestamp = SystemClock.elapsedRealtime()
                 sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
@@ -62,7 +63,7 @@ class PickupSensor(
 
     fun disable() {
         if (sensor != null) {
-            Log.d(TAG, "Disabling")
+            if (DEBUG) Log.d(TAG, "Disabling")
             executorService.submit {
                 sensorManager.unregisterListener(this, sensor)
             }
@@ -71,9 +72,9 @@ class PickupSensor(
 
     companion object {
         private const val TAG = "PickupSensor"
-        private const val DEBUG = false
+        private const val DEBUG = true
 
-        private const val MIN_PULSE_INTERVAL_MS = 2500L
+        private const val MIN_PULSE_INTERVAL_MS = 300L
         private const val WAKELOCK_TIMEOUT_MS = 300L
     }
 }
